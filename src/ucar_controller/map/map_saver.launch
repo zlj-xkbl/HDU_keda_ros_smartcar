@@ -1,0 +1,3 @@
+<launch>
+    <node name="map_server" pkg="map_server" type="map_saver" args="-f /home/ucar/ucar_ws/src/ucar_controller/map/map_text_last_5" />    
+</launch>

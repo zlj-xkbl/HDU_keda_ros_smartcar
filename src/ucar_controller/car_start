@@ -1,0 +1,3 @@
+#！/bin/bash
+roslaunch ucar_controller car_start.launch
+

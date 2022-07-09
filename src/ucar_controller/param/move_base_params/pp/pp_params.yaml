@@ -1,0 +1,112 @@
+# Parameters for pure pursuit controller
+#L: 0.5    # Length of car (m)
+#lfw: 0.25 # distance between the front of the vehicle and its center of gravity
+#Vcmd: 2.0 # reference speed (m/s)
+#Lfw: 1.0 # forward look ahead distance (m)
+#goal_radius: 1.0 # unit: m
+#controller_freq: 20 # unit: Hz
+#steering_gain: 1.0
+#base_angle: 0.0 # neutral point of servo (rad) 
+#cmd_vel_mode: true # whether or not publishing cmd_vel
+#smooth_accel: true # whether or not smoothing the acceleration of car
+#speed_incremental: 0.05 # speed incremental value (discrete acceleraton), unit: m/s
+#debug_mode: true
+#可以运行版本
+# Parameters for pure pursuit controller
+# L: 0.6    # Length of car (m) 车长
+# lfw: 0.3 # distance between the front of the vehicle and its center of gravity 车长的一半
+# Vcmd: 0.9 # reference speed (m/s) 设定速度
+# Lfw: 0.3 # forward look ahead distance (m) 前瞻距离
+# goal_radius: 0.2 # unit: m 距离目标点多少米算到达目标点
+# controller_freq: 15 # unit: Hz
+# steering_gain: 1.0
+# max_w: 100.0 #最大转角
+# base_angle: 0.0 # neutral point of servo (rad) 
+# cmd_vel_mode: true # whether or not publishing cmd_vel
+# smooth_accel: false # whether or not smoothing the acceleration of car  是否平滑车辆加速度
+# speed_incremental: 0.1 # speed incremental value (discrete acceleraton), unit: m/s 速度增量值（离散加速
+# debug_mode: true
+# car_frame: base_link
+
+L: 0.7    # Length of car (m) 车长
+lfw: 0.4 # distance between the front of the vehicle and its center of gravity 车长的一半
+Vcmd: 1.0 #1.5 0.6reference speed (m/s) 设定速度 1.8 0.6 1.6
+Lfw: 0.3 # forward look ahead distance (m) 前瞻距离 0.8
+goal_radius: 0.2 # unit: m 距离目标点多少米算到达目标点
+controller_freq: 25 # unit: Hz
+steering_gain: 0.5 #3.0 7.5 0.55 角速度全 0.65 0.55 1.2 1.6
+max_w: 25 #最大转角
+base_angle: 0.5 # neutral point of servo (rad)
+cmd_vel_mode: true # whether or not publishing cmd_vel
+smooth_accel: false # whether or not smoothing the acceleration of car  是否平滑车辆加速度
+speed_incremental: 0.3 # speed incremental value (discrete acceleraton), unit: m/s 速度增量值（离散加速
+debug_mode: false
+
+set_w_1: 0.6 #转弯角最大允许误差，如果过大则减速
+
+set_w_2: 0.8 #转弯角最大允许误差，如果过大则减速
+set_w_3: 1.0 #转弯角最大允许误差，如果过大则减速
+
+W_param_0: 0.8 #/4.5 直道角速度减速比<set_w_1
+V_param_0: 0.8 #/10 直道线速度减速比
+
+V_param_1: 0.6 #小弧度弯曲时候的线速度减速比set_w_1~set_w_2
+W_param_1: 0.6 #小弧度弯曲时候的角速度减速比
+
+V_param_2: 0.4 #中弧度弯曲时候的线速度减速比set_w_2~set_w_3
+W_param_2: 0.4 #中弧度弯曲时候的角速度减速比
+
+V_param_3: 0.2 #大弧度弯曲时候的线速度减速比>set_w_3
+W_param_3: 0.2 #大弧度弯曲时候的角速度减速比
+
+pid_mode: false
+pid_x/kp: 5
+pid_x/ki: 0.00
+pid_x/kd: 0.1
+pid_x_integral_limit: 2
+pid_x_output_limit: 2
+
+car_frame: base_link
+cmd_topic: cmd_vel_pp
+#pp_cmd_vel
+#第一次备份 5.23
+# L: 0.7    # Length of car (m) 车长
+# lfw: 0.4 # distance between the front of the vehicle and its center of gravity 车长的一半
+# Vcmd: 0.8 # reference speed (m/s) 设定速度 1.8
+# Lfw: 0.3 # forward look ahead distance (m) 前瞻距离 0.8
+# goal_radius: 0.4 # unit: m 距离目标点多少米算到达目标点
+# controller_freq: 25 # unit: Hz
+# steering_gain: 0.55 #7.5 角速度全
+# max_w: 2.4 #最大转角
+# base_angle: 0.0 # neutral point of servo (rad)
+# cmd_vel_mode: true # whether or not publishing cmd_vel
+# smooth_accel: false # whether or not smoothing the acceleration of car  是否平滑车辆加速度
+# speed_incremental: 0.3 # speed incremental value (discrete acceleraton), unit: m/s 速度增量值（离散加速
+# debug_mode: true
+
+# set_w_1: 1.5 #转弯角最大允许误差，如果过大则减速
+
+# set_w_2: 0.8 #转弯角最大允许误差，如果过大则减速
+# set_w_3: 1.0 #转弯角最大允许误差，如果过大则减速
+
+# W_param_0: 0.5 #/4.5 直道角速度减速比<set_w_1
+# V_param_0: 0.5 #/10 直道线速度减速比
+
+# V_param_1: 0.6 #小弧度弯曲时候的线速度减速比set_w_1~set_w_2
+# W_param_1: 0.6 #小弧度弯曲时候的角速度减速比
+
+# V_param_2: 0.4 #中弧度弯曲时候的线速度减速比set_w_2~set_w_3
+# W_param_2: 0.4 #中弧度弯曲时候的角速度减速比
+
+# V_param_3: 0.2 #大弧度弯曲时候的线速度减速比>set_w_3
+# W_param_3: 0.2 #大弧度弯曲时候的角速度减速比
+
+# pid_mode: false
+# pid_x/kp: 5
+# pid_x/ki: 0.00
+# pid_x/kd: 0.1
+# pid_x_integral_limit: 2
+# pid_x_output_limit: 2
+
+# car_frame: base_link
+# cmd_topic: cmd_vel_pp

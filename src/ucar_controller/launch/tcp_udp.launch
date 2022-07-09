@@ -1,0 +1,7 @@
+<launch>
+ <include file="$(find ucar_controller)/launch/tcp_receiver.launch" > </include>
+<include file="$(find ucar_controller)/launch/tcp_udp_sender.launch" > </include>
+
+<include file="$(find ucar_controller)/launch/udp_receiver.launch" > </include>
+
+</launch>

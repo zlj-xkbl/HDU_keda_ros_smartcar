@@ -1,0 +1,7 @@
+topics:
+ - name: "/tf"
+ - name: "/imu"
+   rate: 100.0 # rate limit at 1Hz
+#- name: "/cmd_vel"
+#   compress: true # enable bz2 compression
+# - name: "/my_second_topic"

@@ -1,0 +1,23 @@
+<launch>
+	<!--arg name="target" default="192.168.1.104" /-->
+	<arg name="target" default="192.168.1.104" />
+	<!-- The UDP sender node -->
+	<node name="udp_sender" pkg="nimbro_topic_transport" type="udp_sender" output="screen">
+
+		<!-- The destination host name or IP address -->
+		<param name="destination_addr" value="$(arg target)" />
+		<param name="destination_port" value="17002" />
+
+		<!-- Load the list of topics from a YAML file -->
+		<rosparam command="load" file="$(find ucar_controller)/launch/topics_udp.yaml" />
+	</node>
+<node name="tcp_sender" pkg="nimbro_topic_transport" type="tcp_sender" output="screen">
+
+		<!-- The destination host name or IP address -->
+		<param name="destination_addr" value="$(arg target)" />
+		<param name="destination_port" value="17002" />
+
+		<!-- Load the list of topics from a YAML file -->
+		<rosparam command="load" file="$(find ucar_controller)/launch/topics_tcp.yaml" />
+	</node>
+</launch>

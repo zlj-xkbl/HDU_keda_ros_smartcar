@@ -1,0 +1,11 @@
+<launch>
+    <include file="$(find ucar_controller)/launch/move_base/move_base_teb.launch" > </include>
+    <include file="$(find ucar_controller)/launch/move_base/pp.launch" > </include>
+    <include file="$(find ucar_controller)/launch/move_base/vel_smooth.launch" > </include>
+    <include file="$(find ucar_controller)/launch/move_base/safety_controller.launch" > </include>
+    
+    <node pkg="ucar_controller" type="nav_keypoints.py" name="nav_keypoints" output="screen" respawn="false" />
+    <node pkg="ucar_controller" type="last_control.py" name="last_control" output="screen" respawn="false" />
+    <node pkg="ucar_controller" type="get_lider_line.py" name="get_lider_line" output="screen" respawn="false" />
+
+</launch>

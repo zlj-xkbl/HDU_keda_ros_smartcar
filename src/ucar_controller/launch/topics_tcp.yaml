@@ -1,0 +1,19 @@
+topics:
+ - name: "/scan"
+#   compress: true # enable bz2 compression
+# - name: "/my_second_topic"
+#   compress: true
+# - name: "/odom_rf2o"
+# - name: "/odom"
+# - name: "/cmd_vel"
+ - name: "/rf2o_laser_odometry/odom"
+ - name: "/cmd_vel"
+ - name: "/aruco_single/result"
+ - name: "/usb_cam/camera_info"
+ - name: "/usb_cam/image_raw"
+#   compress: true # enable bz2 compression
+# - name: "/cmd_vel"
+# - name: "/usb_cam/image_raw"
+#   compress: true # enable bz2 compression
+# - name: "/ar_pose_marker"
+# - name: "/usb_cam/camera_info"

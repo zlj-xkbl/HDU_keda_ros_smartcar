@@ -1,0 +1,10 @@
+<launch>
+
+  <include file="$(find ucar_controller)/launch/base_driver.launch" > </include> 
+  <include file="$(find ucar_controller)/launch/tf_server.launch" > </include> 
+  <include file="$(find ydlidar)/launch/ydlidar.launch" > </include>
+<!--include file="$(find ucar_controller)/launch/data.launch" > </include-->
+<!--<include file="$(find ucar_controller)/launch/rf2o.launch" > </include>
+<include file="$(find ucar_controller)/launch/tcp_udp.launch" > </include>-->
+
+</launch>

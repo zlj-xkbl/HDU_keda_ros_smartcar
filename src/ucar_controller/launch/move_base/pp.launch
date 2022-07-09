@@ -1,0 +1,9 @@
+<launch>
+    <node name="Pure_Pursuit" pkg="mpc_ros" type="Pure_Pursuit" output="screen" >
+        <rosparam file="$(find ucar_controller)/param/move_base_params/pp/pp_params.yaml" command="load" />
+        <remap from="/pure_pursuit/odom" to="/odometry/filtered" />
+        <remap from="/pure_pursuit/global_planner" to="/move_base/TebcalPlannerROS/local_plan" />
+        <remap from="/pure_pursuit/goal" to="/move_base_simple/goal" />
+        <remap from="/pure_pursuit/cmd_vel" to="/cmd_vel" />
+    </node>
+</launch>

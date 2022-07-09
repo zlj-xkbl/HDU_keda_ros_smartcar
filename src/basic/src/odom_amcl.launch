@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="basic" type="odom_amcl.py" name="odom_amcl" output="screen">
+  </node>
+</launch>

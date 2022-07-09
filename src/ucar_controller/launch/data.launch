@@ -1,0 +1,52 @@
+<launch>        
+<node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_madgwick" output="screen" respawn="false" >
+        <param name="fixed_frame" value="base_link" />
+        <param name="use_mag" value="false" />
+        <param name="publish_tf" value="false" />
+        <param name="use_magnetic_field_msg" value="false" />
+        <param name="world_frame" value="ned" />
+        <param name="orientation_stddev" value="0.05" />
+        <param name="angular_scale" value="1.0" />
+        <remap from="/imu/data_raw" to="/imu" />
+    </node>
+
+        <node pkg="robot_localization" type="ekf_localization_node" name="ekf_odom_link" clear_params="true">
+        <remap from="odometry/filtered" to="odom" />
+        <rosparam command="load" file="$(find ucar_controller)/config/ekf_odom_link.yaml" />
+    </node>
+
+
+  <arg name="rviz_display" default="true"/>
+
+  <node name="lidar_undistortion" pkg="lidar_undistortion"  type="lidar_undistortion" output="screen">
+
+    <param name="lidar_topic" value="/scan"/>
+    <!-- Estimated time of lidar message transmission(ms) -->
+    <param name="lidar_msg_delay_time" value="12.0"/>
+
+    <param name="scan_direction_clockwise" value="true"/>
+
+    <param name="imu_topic" value="/imu/data"/>
+    <param name="imu_frequency" value="50.0"/>
+
+    <param name="output_frame_id" value="laser_frame"/>
+    <param name="pub_raw_scan_pointcloud" value="true"/>
+
+    <param name="pub_laserscan" value="true"/>
+    <param name="laserscan_angle_increment" value="0.0004"/>
+
+    <param name="use_range_filter" value="true"/>
+    <param name="range_filter_min" value="0.2"/>
+    <param name="range_filter_max" value="16.0"/>
+
+    <param name="use_angle_filter" value="true"/>
+    <param name="angle_filter_min" value="-2.3"/>
+    <param name="angle_filter_max" value="2.3"/>
+
+    <param name="use_radius_outlier_filter" value="true"/>
+    <param name="radius_outlier_filter_search_radius" value="0.1"/>
+    <param name="radius_outlier_filter_min_neighbors" value="2"/>
+    <remap from="lidar_topic" to="scan_0"/>
+    <!--<remap from="imu_topic" to="/imu/data"/>-->
+  </node>
+</launch>

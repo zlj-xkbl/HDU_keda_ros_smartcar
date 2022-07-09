@@ -1,0 +1,83 @@
+<launch>
+<arg name="controller"  default="mpc" doc="opt: dwa, mpc, pure_pursuit"/> 
+   <node name="map_server" pkg="map_server" type="map_server" args="$(find ucar_controller)/map/map_text_last_7.yaml"/>
+<!--amcl-->
+    <!-- <include file="$(find ucar_controller)/launch/car_start_base.launch" > </include> -->
+    <include file="$(find ucar_controller)/launch/amcl/amcl_omni.launch" > </include>
+    <!--<include file="$(find darknet_ros)/launch/yolo_v3.launch" > </include>-->
+    <!--<include file="$(find basic)/src/odom_amcl.launch" > </include>-->
+<!--slam-->
+    <!--gmapping-->
+    <!--<include file="$(find ucar_controller)/launch/slam/gmapping.launch" > </include> -->
+    <!--<include file="$(find my_slam_gmapping)/launch/my_slam_gmapping.launch" > </include> -->
+<!--imu_tools-->
+    <include file="$(find ucar_controller)/launch/rf2o.launch" > </include>
+    
+    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_madgwick" output="screen" respawn="false" >
+        <param name="fixed_frame" value="base_link" />
+        <param name="use_mag" value="false" />
+        <param name="publish_tf" value="false" />
+        <param name="use_magnetic_field_msg" value="false" />
+        <param name="world_frame" value="ned" />
+        <param name="orientation_stddev" value="0.05" />
+        <param name="angular_scale" value="1.0" />
+        <remap from="/imu/data_raw" to="/imu" />
+    </node>
+<!--lidar_undistortion_3-->
+   <!--<param name="use_sim_time" value="true"/>-->
+   <!--<node name="LaserUndistortion_Node" pkg="LaserUndistortion"  type="LaserUndistortion_node" output="screen" />-->
+<!--lidar_undistortion_2-->
+    <!-- <node name="lesson5_lidar_undistortion_node"
+     pkg="lesson5" type="lesson5_lidar_undistortion_node" output="screen" >
+        <rosparam file="$(find lesson5)/config/lidar_undistortion.yaml" command="load"/> -->
+           <!--<remap from="odom_rf2o" to= "/rf2o_laser_odometry/odom"/>-->
+     <!-- </node>
+     <include file="$(find ucar_controller)/launch/pointcloud2scan/lidar_undistortion_offline.launch" > </include>  -->
+<include file="$(find lidar_undistortion)/launch/lidar_undistortion_offline.launch" > </include>
+<!--lidar_undistortion_1-->
+   <!--<include file="$(find keda_move)/launch/lidar_undistortion/lidar_undistortion.launch" > </include>-->
+<!-- Robot_Localization -->
+    <!--<node pkg="robot_localization" type="ekf_localization_node" name="ekf_map_link_odom" clear_params="true">
+        <rosparam command="load" file="$(find keda_move)/param/ekf_map_odom.yaml" />
+    </node>-->
+        <node pkg="robot_localization" type="ekf_localization_node" name="ekf_odom_link" clear_params="true">
+        <rosparam command="load" file="$(find ucar_controller)/param/ekf_param/ekf_odom_link.yaml" />
+           <!--<remap from="odom_rf2o" to= "/rf2o_laser_odometry/odom"/>-->
+    </node>
+ 
+<!-- rf2o  -->    
+<!--<include file="$(find keda_move)/launch/rf2o/rf2o.launch" > </include>-->
+<!-- mpc_ros  -->    
+    <!--<node name="nav_mpc" pkg="mpc_ros" type="nav_mpc" output="screen" if="$(eval controller == 'mpc')" >
+        <rosparam file="$(find mpc_ros)/params/mpc_last_params.yaml" command="load" />
+    </node>
+    <node name="Pure_Pursuit" pkg="mpc_ros" type="Pure_Pursuit" output="screen" if="$(eval controller == 'pure_pursuit')" >
+        <rosparam file="$(find mpc_ros)/params/pure_pursuit_params.yaml" command="load" />
+        <remap from="/pure_pursuit/odom" to="/odom" />
+        <remap from="/pure_pursuit/global_planner" to="/move_base/GlobalPlanner/plan" />
+        <remap from="/pure_pursuit/goal" to="/move_base_simple/goal" />
+        <remap from="/pure_pursuit/cmd_vel" to="/cmd_vel" />
+    </node>-->
+<!--state tf-->
+     <!--<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="0 0 0 0 0 0 base_footprint base_link 100" />-->
+     <!--<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="0 0 0 0 0 0 map odom 100" />-->
+     <!--<node pkg="tf" type="static_transform_publisher" name="base_link_to_imu" args="0.05 -0.05 0.05 0 0 0 base_link imu_frame 100" />-->
+<!--rviz-->
+    <!--node name="rviz" pkg="rviz" type="rviz"
+          args="-d $(find keda_move)/rviz/keda_move.rviz" required="true"/-->
+<!--move_base-->
+    <!--<include file="$(find keda_move)/launch/move_base/move_base_teb.launch" > </include>-->
+<!--tcp/udp-->
+    <!--<include file="$(find keda_move)/launch/tcp_and_udp/tcp_receiver.launch" > </include>
+    <include file="$(find keda_move)/launch/tcp_and_udp/udp_receiver.launch" > </include>
+    <include file="$(find keda_move)/launch/tcp_and_udp/tcp_sender.launch" > </include>-->
+    <!--<include file="$(find keda_move)/launch/tcp_and_udp/udp_sender.launch" > </include>-->
+<!--xf_yuyin-->
+<include file="$(find xf_mic_asr_offline)/launch/xf_mic_asr_offline.launch" > </include>
+<include file="$(find xf_mic_tts_offline)/launch/xf_mic_tts_offline.launch" > </include>
+<!--cam-->
+<include file="$(find ucar_controller)/launch/cam/aruco_detector.launch" > </include>
+<!-- <include file="$(find ucar_controller)/launch/cam/cam_uvc.launch" > </include>  -->
+
+<include file="$(find ucar_controller)/launch/move_base/move_base_pp_teb.launch" > </include>
+</launch>
